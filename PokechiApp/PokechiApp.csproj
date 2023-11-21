@@ -79,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PokemonDetailsResult.cs" />
     <Compile Include="PokemonResults.cs" />
     <Compile Include="PokemonSpeciesResults.cs" />
     <Compile Include="Program.cs" />

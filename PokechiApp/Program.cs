@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Net;
-using System.Net.Http;
 using RestSharp;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Collections.Generic;
-using System.Web.Script.Serialization;
-using PokechiApp;
+using System.Net.Http;
 using Newtonsoft.Json;
 
 namespace PokechiApp
@@ -26,14 +20,14 @@ namespace PokechiApp
             var response = client.Execute(request);
             var pokeSpeciesResult = JsonConvert.DeserializeObject<PokemonSpeciesResults>(response.Content);
 
-            Console.WriteLine("Bem vindo! Escolha um Tamagotchi: ");
+            Console.WriteLine("************************\n");
+            Console.WriteLine("Bem vindo à central de pokemons! ");
             for (int i = 0; i < pokeSpeciesResult.Results.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {pokeSpeciesResult.Results[i].Name}");
             }
 
-            // Obter a escolha do jogador
-            int escolha;
+            int escolha; // Player choice
 
             while (true)
             {
@@ -50,7 +44,7 @@ namespace PokechiApp
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("ocorreu um erro: " + e.Message);
+                    Console.WriteLine("Ocorreu um erro: " + e.Message);
                 }
             }
 
@@ -58,8 +52,24 @@ namespace PokechiApp
             request = new RestRequest($"https://pokeapi.co/api/v2/pokemon/{escolha}", Method.Get);
             response = client.Execute(request);
 
-            // Mostrar as características ao jogador
-            Console.WriteLine(response.Content);
+            var pokemonDetalhes = JsonConvert.DeserializeObject<PokemonDetailsResult>(response.Content);
+            var choosedOne = pokeSpeciesResult.Results[escolha - 1];
+
+            // Mostra as características
+            Console.WriteLine("\n************************\n");
+            Console.WriteLine($"Você escolheu {choosedOne.Name.ToUpper()}!\n");
+            Console.WriteLine($"Detalhes:");
+            Console.WriteLine($"- Nome: {choosedOne.Name}");
+            Console.WriteLine($"- Peso: {pokemonDetalhes.Weight}");
+            Console.WriteLine($"- Altura: {pokemonDetalhes.Height}");
+
+            Console.WriteLine("\nHabilidades: ");
+            foreach (var abilityDetail in pokemonDetalhes.Abilities)
+            {
+                Console.WriteLine("- " + abilityDetail.Ability.Name);
+            }
+
+            Console.WriteLine("\n************************\n");
         }
     }
 }
