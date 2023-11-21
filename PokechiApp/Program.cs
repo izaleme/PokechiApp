@@ -13,6 +13,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using RestSharp;
+using System.Net;
 
 namespace PokechiApp
 {
@@ -26,16 +27,21 @@ namespace PokechiApp
 
         private static void InvokeGet()
         {
-            var client = new RestClient($"https://pokeapi.co/api/v2/pokemon/");
-            RestRequest request = new RestRequest("", Method.Get);
+            // Create a custom HttpClientHandler to ignore system proxy settings
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            httpClientHandler.UseProxy = false; // Disable the system proxy settings
+            HttpClient proxy = new HttpClient(httpClientHandler);
+
+            var client = new RestClient(proxy);
+            RestRequest request = new RestRequest("https://pokeapi.co/api/v2/pokemon/", Method.Get); // All pokemons options
+
             var response = client.Execute(request);
 
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
+            if (response.StatusCode == HttpStatusCode.OK)
                 Console.WriteLine(response.Content);
-            } else {
+            else
                 Console.WriteLine(response.ErrorMessage);
-            }
+
             Console.ReadKey();
         }
 
