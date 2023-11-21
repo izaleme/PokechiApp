@@ -2,20 +2,18 @@
 using System.Net;
 using System.Net.Http;
 using RestSharp;
-
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Collections.Generic;
 using System.Web.Script.Serialization;
+using PokechiApp;
+using Newtonsoft.Json;
 
 namespace PokechiApp
 {
-    internal class Program
+    public class Program
     {
-        static void Main(string[] args)
-        {
-            InvokeGet();
-        }
-
-        private static void InvokeGet()
+        public static void Main(string[] args)
         {
             // Create a custom HttpClientHandler to ignore system proxy settings
             HttpClientHandler httpClientHandler = new HttpClientHandler();
@@ -23,36 +21,45 @@ namespace PokechiApp
             HttpClient proxy = new HttpClient(httpClientHandler);
 
             var client = new RestClient(proxy);
-            RestRequest request = new RestRequest("https://pokeapi.co/api/v2/pokemon/", Method.Get); // All pokemons options
+            RestRequest request = new RestRequest("https://pokeapi.co/api/v2/pokemon-species/", Method.Get); // All pokemons options
 
             var response = client.Execute(request);
+            var pokeSpeciesResult = JsonConvert.DeserializeObject<PokemonSpeciesResults>(response.Content);
 
-            if (response.StatusCode == HttpStatusCode.OK)
-                ReadJSON(response.Content); //Console.WriteLine(response.Content);
-            else
-                Console.WriteLine(response.ErrorMessage);
-
-            Console.ReadKey();
-        }
-
-        private static void ReadJSON(string content)
-        {
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            dynamic result = serializer.DeserializeObject(content);
-
-            Console.WriteLine(" *** Pokemons Disponíveis *** \n");
-
-            foreach (KeyValuePair<string, object> entry in result)
+            Console.WriteLine("Bem vindo! Escolha um Tamagotchi: ");
+            for (int i = 0; i < pokeSpeciesResult.Results.Count; i++)
             {
-                var key = entry.Key;
-                var value = entry.Value as string;
-                Console.WriteLine(string.Format("{0} : {1}", key, value));
+                Console.WriteLine($"{i + 1}. {pokeSpeciesResult.Results[i].Name}");
             }
 
-            Console.WriteLine("");
-            Console.WriteLine(serializer.Serialize(result));
-            Console.WriteLine("");
-            Console.ReadKey();
+            // Obter a escolha do jogador
+            int escolha;
+
+            while (true)
+            {
+                Console.WriteLine("\n");
+                Console.Write("Escolha um número: ");
+
+                try
+                {
+                    if (!int.TryParse(Console.ReadLine(), out escolha) && escolha >= 1 && escolha <= pokeSpeciesResult.Results.Count)
+                    {
+                        Console.WriteLine("Escolha inválida. Tente novamente.");
+                    }
+                    else break;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("ocorreu um erro: " + e.Message);
+                }
+            }
+
+            // Obter as características do Pokémon escolhido
+            request = new RestRequest($"https://pokeapi.co/api/v2/pokemon/{escolha}", Method.Get);
+            response = client.Execute(request);
+
+            // Mostrar as características ao jogador
+            Console.WriteLine(response.Content);
         }
     }
 }
