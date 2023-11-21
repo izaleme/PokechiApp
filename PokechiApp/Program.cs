@@ -1,28 +1,18 @@
-﻿/* Projeto: PokeChi App
- * Autora: Izabela Leme
- * Data Início: 21/11/2023
- * */
-
-using System;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Data;
-using System.Drawing;
-using System.ComponentModel;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using RestSharp;
+﻿using System;
 using System.Net;
+using System.Net.Http;
+using RestSharp;
+
+using System.Collections.Generic;
+using System.Web.Script.Serialization;
 
 namespace PokechiApp
 {
-    class Program
+    internal class Program
     {
         static void Main(string[] args)
         {
             InvokeGet();
-            //InvokePost()
         }
 
         private static void InvokeGet()
@@ -38,16 +28,31 @@ namespace PokechiApp
             var response = client.Execute(request);
 
             if (response.StatusCode == HttpStatusCode.OK)
-                Console.WriteLine(response.Content);
+                ReadJSON(response.Content); //Console.WriteLine(response.Content);
             else
                 Console.WriteLine(response.ErrorMessage);
 
             Console.ReadKey();
         }
 
-        private static void InvokePost()
+        private static void ReadJSON(string content)
         {
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            dynamic result = serializer.DeserializeObject(content);
 
+            Console.WriteLine(" *** Pokemons Disponíveis *** \n");
+
+            foreach (KeyValuePair<string, object> entry in result)
+            {
+                var key = entry.Key;
+                var value = entry.Value as string;
+                Console.WriteLine(string.Format("{0} : {1}", key, value));
+            }
+
+            Console.WriteLine("");
+            Console.WriteLine(serializer.Serialize(result));
+            Console.WriteLine("");
+            Console.ReadKey();
         }
     }
 }
