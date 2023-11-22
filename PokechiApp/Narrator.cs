@@ -1,12 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace PokechiApp
 {
     public class Narrator
     {
-        string player = string.Empty;
-        int pronome = 0; // 1 = he; 2 = she; 3 = they
-        int optionMenu = 0; // 0 = default
+        #region Attributes/Properties
+
+        public string Player { get; private set; }
+        public int Pronome { get; private set; }
+        public int OptionMenu { get; set; }
+
+        #endregion
 
         public void Welcome()
         {
@@ -16,69 +21,101 @@ namespace PokechiApp
             Console.WriteLine("\nAqui você poderá escolher um pokemon para ser seu pet! Vamos começar?");
 
             Console.Write("Primeiro, digite seu nome: ");
-            player = Console.ReadLine();
+            Player = Console.ReadLine();
             Console.WriteLine();
 
             Console.WriteLine("Com qual pronome você gostaria de ser chamado? ");
             Console.Write("Digite 1 para ELE, 2 para ELA e 3 para ELU: ");
 
-            while (pronome == 0)
+            while (Pronome == 0)
             {
-                pronome = Convert.ToInt16(Console.ReadLine());
+                Pronome = Convert.ToInt16(Console.ReadLine());
                 Console.WriteLine();
             }
 
-            if (pronome == 1)
-                Console.WriteLine($"Seja bem vindo, {player}!\n");
-            else if (pronome == 2)
-                Console.WriteLine($"Seja bem vinda, {player}!\n");
+            if (Pronome == 1)
+                Console.WriteLine($"Seja bem vindo, {Player}!\n");
+            else if (Pronome == 2)
+                Console.WriteLine($"Seja bem vinda, {Player}!\n");
             else
-                Console.WriteLine($"Seja bem vinde, {player}!\n");
+                Console.WriteLine($"Seja bem vinde, {Player}!\n");
 
+            OptionMenu = 0;
             Menu();
         }
 
         public void Menu()
         {
-            Console.WriteLine(" *********************** ");
-            Console.WriteLine(" *         MENU        * ");
-            Console.WriteLine(" *********************** ");
-            Console.WriteLine(" * 1 - Adoção de Pets  * ");
-            Console.WriteLine(" * 2 - Pets adotados   * ");
-            Console.WriteLine(" * 3 - Sair            * ");
-            Console.WriteLine(" *********************** ");
+            Console.WriteLine(" **************************** ");
+            Console.WriteLine(" *           MENU           * ");
+            Console.WriteLine(" **************************** ");
+            Console.WriteLine(" * 1 - Adoção de Pets       * ");
+            Console.WriteLine(" * 2 - Pets adotados        * ");
+            Console.WriteLine(" * 3 - Sair                 * ");
+            Console.WriteLine(" **************************** ");
+            Console.WriteLine(" **************************** ");
             Console.WriteLine();
-            
-            while (optionMenu <= 0 || optionMenu > 3)
-            {
-                Console.Write("Digite a opção escolhida: ");
-                optionMenu = Convert.ToInt16(Console.ReadLine());
-            }
+        }
 
-            if (optionMenu == 1)
+        public void AdoptionOptions(List<PokemonResults> species)
+        {
+            Console.WriteLine("Pets disponíveis para adoção:");
+            for (int i = 0; i < species.Count; i++)
             {
-                Console.WriteLine("\n** Você escolheu Adoção de Pets! **");
-                AdoptionOptions();
-            }
-            else if (optionMenu == 2)
-            {
-                Console.WriteLine("\n** Você escolheu Pets Adotados! **");
-                AdoptedPets();
-            }
-            else
-            {
-                Console.WriteLine($"\n** Você escolheu Sair! Até logo, {player}! **");
+                Console.WriteLine(i + 1 + ". " + species[i].Name);
             }
         }
 
-        public void AdoptionOptions()
+        public void PetDetails(PokemonDetailsResult pet)
+        {
+            Console.WriteLine($"Detalhes do Pokemon:");
+            Console.WriteLine($"Nome: {pet.Name}");
+            Console.WriteLine($"Peso: {pet.Weight}");
+            Console.WriteLine($"Altura: {pet.Height}");
+
+            Console.WriteLine("Habilidades: ");
+            foreach (var abilityDetail in pet.Abilities)
+            {
+                Console.WriteLine("- " + abilityDetail.Ability.Name);
+            }
+        }
+
+        public void AdoptedPets(PokemonDetailsResult details)
         {
 
         }
 
-        public void AdoptedPets()
-        {
+        //public int ChooseMenuOption()
+        //{
+        //    int option;
+        //    while (!int.TryParse(Console.ReadLine(), out option) || option < 1 || option > 4) // 4 pq será adicionada +1 opção (detalhes do pet)
+        //    {
+        //        Console.Write("Escolha inválida. Por favor, escolha uma opção entre 1 e 4: ");
+        //    }
+        //    return option;
+        //}
 
+        public int ChoosePokemon(List<PokemonResults> species)
+        {
+            int escolha;
+            while (true)
+            {
+                Console.WriteLine("\n");
+                Console.Write("Escolha uma opção: ");
+
+                try
+                {
+                    if (!int.TryParse(Console.ReadLine(), out escolha) && escolha >= 1 && escolha <= species.Count)
+                        Console.WriteLine("Escolha inválida. Tente novamente.");
+                    else break;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Ocorreu um erro: " + e.Message);
+                }
+            }
+
+            return escolha - 1;
         }
     }
 }
