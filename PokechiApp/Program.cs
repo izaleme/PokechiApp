@@ -9,6 +9,9 @@ namespace PokechiApp
     {
         public static void Main(string[] args)
         {
+            PokemonApiService service = new PokemonApiService();
+            Narrator narrator = new Narrator();
+
             // Create a custom HttpClientHandler to ignore system proxy settings
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             httpClientHandler.UseProxy = false; // Disable the system proxy settings
@@ -20,8 +23,8 @@ namespace PokechiApp
             var response = client.Execute(request);
             var pokeSpeciesResult = JsonConvert.DeserializeObject<PokemonSpeciesResults>(response.Content);
 
-            Console.WriteLine("************************\n");
-            Console.WriteLine("Bem vindo à central de pokemons! ");
+            //narrator.Welcome();
+
             for (int i = 0; i < pokeSpeciesResult.Results.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {pokeSpeciesResult.Results[i].Name}");
@@ -32,14 +35,12 @@ namespace PokechiApp
             while (true)
             {
                 Console.WriteLine("\n");
-                Console.Write("Escolha um número: ");
+                Console.Write("Escolha uma opção: ");
 
                 try
                 {
                     if (!int.TryParse(Console.ReadLine(), out escolha) && escolha >= 1 && escolha <= pokeSpeciesResult.Results.Count)
-                    {
                         Console.WriteLine("Escolha inválida. Tente novamente.");
-                    }
                     else break;
                 }
                 catch (Exception e)
@@ -48,14 +49,12 @@ namespace PokechiApp
                 }
             }
 
-            // Obter as características do Pokémon escolhido
-            request = new RestRequest($"https://pokeapi.co/api/v2/pokemon/{escolha}", Method.Get);
+            request = new RestRequest($"https://pokeapi.co/api/v2/pokemon/{escolha}", Method.Get); // Details of the chosen pokemon
             response = client.Execute(request);
 
             var pokemonDetalhes = JsonConvert.DeserializeObject<PokemonDetailsResult>(response.Content);
             var choosedOne = pokeSpeciesResult.Results[escolha - 1];
 
-            // Mostra as características
             Console.WriteLine("\n************************\n");
             Console.WriteLine($"Você escolheu {choosedOne.Name.ToUpper()}!\n");
             Console.WriteLine($"Detalhes:");

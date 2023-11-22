@@ -79,6 +79,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Narrator.cs" />
+    <Compile Include="PokemonApiService.cs" />
     <Compile Include="PokemonDetailsResult.cs" />
     <Compile Include="PokemonResults.cs" />
     <Compile Include="PokemonSpeciesResults.cs" />
