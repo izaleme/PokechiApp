@@ -17,7 +17,7 @@ namespace PokechiApp.Controllers
         {
             menu = new TamagotchiView();
             pokemonApiService = new PokemonAPIService();
-            //petsDisponiveis = pokemonApiService.GetAllPokemons();
+            petsDisponiveis = pokemonApiService.GetAllPokemons();
             petsAdotados = new List<PokemonDetailsResult>();
         }
 

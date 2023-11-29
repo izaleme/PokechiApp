@@ -16,7 +16,7 @@ namespace PokechiApp.Services
             _ = new HttpClient(httpClientHandler);
         }
 
-        public List<PokemonSpeciesResults> GetAllPokemons() //List<PokemonResults>
+        public List<PokemonResults> GetAllPokemons()
         {
             var client = new RestClient(Proxy);
             RestRequest request = new RestRequest("https://pokeapi.co/api/v2/pokemon-species/", Method.Get); // All pokemons options
