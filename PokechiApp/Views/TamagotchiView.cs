@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PokechiApp
 {
-    public class Narrator
+    public class TamagotchiView
     {
         #region Attributes/Properties
 

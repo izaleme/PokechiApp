@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace PokechiApp
 {
-    public class PokemonApiService
+    public class PokemonAPIService
     {
         private void Proxy(RestClientOptions options)
         {

@@ -7,9 +7,9 @@ namespace PokechiApp
     {
         public static void Main(string[] args)
         {
-            Narrator narrator = new Narrator();
+            TamagotchiView narrator = new TamagotchiView();
             PokemonResults pokemon = new PokemonResults();
-            PokemonApiService service = new PokemonApiService();
+            PokemonAPIService service = new PokemonAPIService();
             List<PokemonResults> petsDisponiveis = new List<PokemonResults>();
             List<PokemonDetailsResult> petsAdotados = new List<PokemonDetailsResult>();
 

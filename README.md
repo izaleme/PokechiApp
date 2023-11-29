@@ -14,7 +14,7 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 - [x] Conexão com uma API Rest
 - [x] Parse JSON e construção do modelo com composição
 - [x] Construção da view
-- [ ] Arquitetura de camadas e construção de Controller
+- [x] Arquitetura de camadas e construção de Controller
 - [ ] Contrução da interação com o pet
 - [ ] Mapeando os objetos com C#
 - [ ] Ajustes finais e publicação da aplicação
