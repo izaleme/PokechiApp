@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using PokechiApp.Models;
 
-namespace PokechiApp
+namespace PokechiApp.Views
 {
     public class TamagotchiView
     {

@@ -80,7 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\TamagotchiController.cs" />
-    <Compile Include="Narrator.cs" />
+    <Compile Include="Views\TamagotchiView.cs" />
     <Compile Include="Services\PokemonAPIService.cs" />
     <Compile Include="Models\PokemonDetailsResult.cs" />
     <Compile Include="Models\PokemonResults.cs" />
@@ -92,8 +92,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

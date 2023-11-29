@@ -28,6 +28,15 @@ Antes de começar, é necessário realizar as seguintes configurações no VS:
 - Para trabalhar com JSON, é necessário adicionar uma referência, conforme tutorial: `Project --> Add --> Reference --> Assemblies --> Framework --> System.Web.Extensions`.
 
 
+### Sumário
+
+O MVC é um padrão de design organizado em 3 camadas:
+
+- Models (modelagem e acesso a dados)
+- Views (interface do usuário)
+- Controllers (lógica da aplicação)
+
+
 ## 🚀 Instalando PokeChi
 
 Para instalar o PokeChi, siga estas etapas:

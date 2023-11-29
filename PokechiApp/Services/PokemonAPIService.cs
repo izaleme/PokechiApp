@@ -1,9 +1,10 @@
 ﻿using RestSharp;
-using System.Net.Http;
 using Newtonsoft.Json;
+using System.Net.Http;
 using System.Collections.Generic;
+using PokechiApp.Models;
 
-namespace PokechiApp
+namespace PokechiApp.Services
 {
     public class PokemonAPIService
     {

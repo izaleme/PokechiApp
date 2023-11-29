@@ -1,4 +1,4 @@
-﻿namespace PokechiApp
+﻿namespace PokechiApp.Models
 {
     public class PokemonResults
     {
