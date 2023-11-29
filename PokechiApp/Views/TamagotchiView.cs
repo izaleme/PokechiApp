@@ -10,7 +10,6 @@ namespace PokechiApp.Views
 
         public string Player { get; private set; }
         public int Pronome { get; private set; }
-        public int OptionMenu { get; set; }
 
         #endregion
 
@@ -26,7 +25,7 @@ namespace PokechiApp.Views
             Console.WriteLine();
 
             Console.WriteLine("Com qual pronome você gostaria de ser chamado? ");
-            Console.Write("Digite 1 para ELE, 2 para ELA e 3 para ELU: ");
+            Console.Write("Digite 1 para ELE, 2 para ELA ou 3 para ELU: ");
 
             while (Pronome == 0)
             {
@@ -40,12 +39,9 @@ namespace PokechiApp.Views
                 Console.WriteLine($"Seja bem vinda, {Player}!\n");
             else
                 Console.WriteLine($"Seja bem vinde, {Player}!\n");
-
-            OptionMenu = 0;
-            Menu();
         }
 
-        public void Menu()
+        public void ShowMenuPrincipal()
         {
             Console.WriteLine(" **************************** ");
             Console.WriteLine(" *           MENU           * ");
@@ -56,25 +52,27 @@ namespace PokechiApp.Views
             Console.WriteLine(" **************************** ");
             Console.WriteLine(" **************************** ");
             Console.WriteLine();
+
+            Console.Write("Escolha uma opção: ");
         }
 
-        public void MenuAdoption()
+        public void ShowAdoptionMenu()
         {
-            Console.WriteLine(" **************************** ");
-            Console.WriteLine(" *      ADOÇÃO DE PETS      * ");
-            Console.WriteLine(" **************************** ");
-            Console.WriteLine(" * 1 - Pokemons Disponíveis * ");
-            Console.WriteLine(" * 2 - Sobre um Pokemon     * ");
-            Console.WriteLine(" * 3 - Fazer uma Adoção     * ");
-            Console.WriteLine(" * 4 - Voltar               * ");
-            Console.WriteLine(" **************************** ");
-            Console.WriteLine(" **************************** ");
+            Console.WriteLine(" ******************************** ");
+            Console.WriteLine(" *        ADOÇÃO DE PETS        * ");
+            Console.WriteLine(" ******************************** ");
+            Console.WriteLine(" * 1 - Pokemons Disponíveis     * ");
+            Console.WriteLine(" * 2 - Sobre um Pokemon         * ");
+            Console.WriteLine(" * 3 - Adotar um Pokemon        * ");
+            Console.WriteLine(" * 4 - Voltar ao Menu Principal * ");
+            Console.WriteLine(" ******************************** ");
+            Console.WriteLine(" ******************************** ");
             Console.WriteLine();
 
             Console.Write("Escolha uma opção: ");
         }
 
-        public void AdoptionOptions(List<PokemonResults> species)
+        public void ShowPetsDisponiveis(List<PokemonResults> species)
         {
             Console.WriteLine("*****************************");
             Console.WriteLine("Pets disponíveis para adoção:");
@@ -84,22 +82,22 @@ namespace PokechiApp.Views
             }
         }
 
-        public void PetDetails(PokemonDetailsResult pet)
+        public void ShowDetalhesEspecie(PokemonDetailsResult specie)
         {
             Console.WriteLine("\n********************");
             Console.WriteLine("Detalhes do Pokemon:");
-            Console.WriteLine($"Nome: {pet.Name}");
-            Console.WriteLine($"Peso: {pet.Weight}");
-            Console.WriteLine($"Altura: {pet.Height}");
+            Console.WriteLine($"Nome: {specie.Name}");
+            Console.WriteLine($"Peso: {specie.Weight}");
+            Console.WriteLine($"Altura: {specie.Height}");
 
             Console.WriteLine("Habilidades: ");
-            foreach (var abilityDetail in pet.Abilities)
+            foreach (var abilityDetail in specie.Abilities)
             {
                 Console.WriteLine("- " + abilityDetail.Ability.Name);
             }
         }
 
-        public void AdoptedPets(List<PokemonDetailsResult> adoptedPets)
+        public void ShowAdoptedPets(List<PokemonDetailsResult> adoptedPets)
         {
             Console.WriteLine("\n*******************");
             Console.WriteLine("Seus pets adotados:");
@@ -126,17 +124,17 @@ namespace PokechiApp.Views
             return option;
         }
 
-        public int ChoosePokemon(List<PokemonResults> species)
+        public int ChoosePokemon(List<PokemonResults> specie)
         {
+            Console.WriteLine("\n-------------------------------");
+
             int escolha;
             while (true)
             {
-                Console.WriteLine("\n");
-                Console.Write("Escolha uma opção: ");
-
+                Console.Write("Escolha uma espécie pelo número: ");
                 try
                 {
-                    if (!int.TryParse(Console.ReadLine(), out escolha) && escolha >= 1 && escolha <= species.Count)
+                    if (!int.TryParse(Console.ReadLine(), out escolha) && escolha >= 1 && escolha <= specie.Count)
                         Console.WriteLine("Escolha inválida. Tente novamente.");
                     else break;
                 }
@@ -147,6 +145,13 @@ namespace PokechiApp.Views
             }
 
             return escolha - 1;
+        }
+
+        public bool ConfirmarAdocao()
+        {
+            Console.Write("\nVocê gostaria de adotar esse pet? (s/n): ");
+            string resposta = Console.ReadLine();
+            return resposta.ToLower() == "s";
         }
     }
 }

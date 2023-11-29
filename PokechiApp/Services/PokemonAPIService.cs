@@ -16,7 +16,7 @@ namespace PokechiApp.Services
             _ = new HttpClient(httpClientHandler);
         }
 
-        public List<PokemonSpeciesResults> GetPetsDisponiveis() //List<PokemonResults>
+        public List<PokemonSpeciesResults> GetAllPokemons() //List<PokemonResults>
         {
             var client = new RestClient(Proxy);
             RestRequest request = new RestRequest("https://pokeapi.co/api/v2/pokemon-species/", Method.Get); // All pokemons options
@@ -26,7 +26,7 @@ namespace PokechiApp.Services
             return pokeSpeciesResult.Results;
         }
 
-        public PokemonDetailsResult PetDetails(PokemonResults specie)
+        public PokemonDetailsResult GetPokemonDetails(PokemonResults specie)
         {
             var client = new RestClient(Proxy);
             var request = new RestRequest($"https://pokeapi.co/api/v2/pokemon/{specie.Name}", Method.Get); // Details of the chosen pokemon

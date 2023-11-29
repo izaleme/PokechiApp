@@ -19,6 +19,10 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 - [ ] Mapeando os objetos com C#
 - [ ] Ajustes finais e publicação da aplicação
 
+- [ ] Bônus: Adicionar opção de idioma inglês / português
+- [ ] Bônus: Criar uma interface mais avançada de interação com o jogador.
+
+
 ## 💻 Pré-requisitos
 
 Para o desenvolvimento foram utilizados o Visual Studio 2022 e Windows 11 Pro.<br/>
