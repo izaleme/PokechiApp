@@ -23,7 +23,9 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 - [ ] Bônus: Criar uma interface mais avançada de interação com o jogador.
 
 
-## 💻 Pré-requisitos
+## 💻 Pré-requisitos e Tecnologias Utilizadas
+
+--> C#, JSON e API do Pokemon.
 
 Para o desenvolvimento foram utilizados o Visual Studio 2022 e Windows 11 Pro.<br/>
 Antes de começar, é necessário realizar as seguintes configurações no VS:
