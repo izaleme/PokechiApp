@@ -11,14 +11,14 @@ namespace PokechiApp.Controllers
         private TamagotchiView menu { get; set; }
         private PokemonAPIService pokemonApiService { get; set; }
         private List<PokemonResults> petsDisponiveis { get; set; }
-        private List<PokemonDetailsResult> petsAdotados { get; set; }
+        private List<TamagotchiDto> petsAdotados { get; set; }
 
         public TamagotchiController()
         {
             menu = new TamagotchiView();
             pokemonApiService = new PokemonAPIService();
             petsDisponiveis = pokemonApiService.GetAllPokemons();
-            petsAdotados = new List<PokemonDetailsResult>();
+            petsAdotados = new List<TamagotchiDto>();
         }
 
         public void Play()
@@ -28,7 +28,7 @@ namespace PokechiApp.Controllers
             while (true)
             {
                 menu.ShowMenuPrincipal();
-                int optionMenu = menu.ChooseMenuOption(1, 3);
+                int optionMenu = menu.ChooseMenuOption(1, 4);
 
                 switch (optionMenu)
                 {
@@ -58,7 +58,10 @@ namespace PokechiApp.Controllers
                                     menu.ShowDetalhesEspecie(details);
                                     if (menu.ConfirmarAdocao())
                                     {
-                                        petsAdotados.Add(details);
+                                        var tamagotchi = new TamagotchiDto();
+                                        tamagotchi.AtualizarPropriedades(details);
+                                        petsAdotados.Add(tamagotchi);
+
                                         Console.WriteLine("Parabéns! Você adotou um " + details.Name + "!");
                                         Console.WriteLine("──────────────");
                                         Console.WriteLine("────▄████▄────");
@@ -66,20 +69,62 @@ namespace PokechiApp.Controllers
                                         Console.WriteLine("──██████████──");
                                         Console.WriteLine("──▀████████▀──");
                                         Console.WriteLine("─────▀██▀─────");
-                                        Console.WriteLine("──────────────");
+                                        Console.WriteLine("──────────────\n");
                                     }
                                     break;
 
                                 case 4:
                                     break;
                             }
+
+                            if (optionMenu == 4) break;
                         }
+                        break;
 
                     case 2:
-                        menu.ShowAdoptedPets(petsAdotados);
+                        if (petsAdotados.Count == 0)
+                        {
+                            Console.WriteLine("Você não tem nenhum pet adotado.");
+                            break;
+                        }
+
+                        Console.WriteLine("\nEscolha um pet para interagir: ");
+                        for (int i = 0; i < petsAdotados.Count; i++)
+                        {
+                            Console.WriteLine($"{i + 1}. {petsAdotados[i].Name}");
+                        }
+
+                        int indiceMascote = menu.ChoosePokemon(petsDisponiveis);
+                        TamagotchiDto mascoteEscolhido = petsAdotados[indiceMascote];
+
+                        int optionInteraction = 0;
+                        while (optionInteraction != 4)
+                        {
+                            menu.ShowInteractionMenu();
+                            optionInteraction = menu.ChooseMenuOption(1, 4);
+
+                            switch (optionInteraction)
+                            {
+                                case 1:
+                                    mascoteEscolhido.MostrarStatus();
+                                    break;
+                                case 2:
+                                    mascoteEscolhido.Alimentar();
+                                    break;
+                                case 3:
+                                    mascoteEscolhido.Brincar();
+                                    break;
+                                case 4:
+                                    break;
+                            }
+                        }
                         break;
 
                     case 3:
+                        menu.ShowAdoptedPets(petsAdotados);
+                        break;
+
+                    case 4:
                         Console.WriteLine("Obrigado por jogar! Até a próxima!");
                         return;
                 }
