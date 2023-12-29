@@ -53,35 +53,57 @@ namespace PokechiApp.Models
 
         public void Alimentar()
         {
+            int oldFood = Food;
+            int oldEnergy = Energy;
+
             Food = Math.Min(Food + 2, 10);
             Energy = Math.Max(Energy - 1, 0);
 
-            Console.WriteLine("\n**Mascote alimentado!**");
+            Console.WriteLine("\nMascote alimentado!");
+            Console.WriteLine($"Obteve +{Food - oldFood} de comida!");
+            Console.WriteLine($"Perdeu {Math.Abs(Energy - oldEnergy)} de energia!");
         }
 
         public void Brincar()
         {
+            int oldHumor = Humor;
+            int oldEnergy = Energy;
+            int oldFood = Food;
+
             Humor = Math.Min(Humor + 3, 10);
             Energy = Math.Max(Energy - 2, 0);
             Food = Math.Max(Food - 1, 0);
 
-            Console.WriteLine("\n**Mascote feliz!**");
+            Console.WriteLine("\nMascote feliz!");
+            Console.WriteLine($"Obteve +{Humor - oldHumor} de humor!");
+            Console.WriteLine($"Perdeu {Math.Abs(Energy - oldEnergy)} de energia!");
+            Console.WriteLine($"Perdeu {Math.Abs(Food - oldFood)} de comida!");
         }
 
         public void Descansar()
         {
+            int oldEnergy = Energy;
+            int oldHumor = Humor;
+
             Energy = Math.Min(Energy + 4, 10);
             Humor = Math.Max(Humor - 1, 0);
 
-            Console.WriteLine("\n**Mascote a mimir!**");
+            Console.WriteLine("\nMascote a mimir!");
+            Console.WriteLine($"Obteve +{Energy - oldEnergy} de energia!");
+            Console.WriteLine($"Perdeu {Math.Abs(Humor - oldHumor)} de humor!");
         }
 
         public void Carinho()
         {
+            int oldHumor = Humor;
+            int oldHealth = Health;
+
             Humor = Math.Min(Humor + 2, 10);
             Health = Math.Min(Health - 1, 0);
 
-            Console.WriteLine("\n**Mascote amado!**");
+            Console.WriteLine("\nMascote amado!");
+            Console.WriteLine($"Obteve +{Humor - oldHumor} de humor!");
+            Console.WriteLine($"Perdeu {Math.Abs(Health - oldHealth)} de saúde!");
         }
 
         public void MostrarStatus()
@@ -90,26 +112,35 @@ namespace PokechiApp.Models
             Console.WriteLine("--> STATUS DO PET ");
 
             // Alimentação
-            if (Food >= 9) Console.WriteLine($"-> Fome: {strPetName} está de barriga cheia!");
-            else if (Food <= 2) Console.WriteLine($"-> Fome: {strPetName} está morrendo de fome!");
-            else if (Food < 6) Console.WriteLine($"-> Fome: {strPetName} está com fome!");
-            else Console.WriteLine($"-> Fome: {strPetName} está bem alimentado!");
-            
+            string strMsgFood;
+            if (Food >= 9) strMsgFood = " está de barriga cheia!";
+            else if (Food <= 2) strMsgFood = " está morrendo de fome!";
+            else if (Food < 6) strMsgFood = " está com fome!";
+            else strMsgFood = " está alimentado!";
+
             // Humor
-            if (Humor >= 9) Console.WriteLine($"-> Humor: {strPetName} está radiante!");
-            else if (Humor <= 4) Console.WriteLine($"-> Humor: {strPetName} está triste!");
-            else Console.WriteLine($"-> Humor: {strPetName} está feliz!");
+            string strMsgHumor;
+            if (Humor >= 9) strMsgHumor = " está radiante!";
+            else if (Humor <= 4) strMsgHumor = " está triste!";
+            else strMsgHumor = " está feliz!";
 
             // Energia
-            if (Energy >= 9) Console.WriteLine($"-> Energia: {strPetName} está muito animado!");
-            else if (Energy <= 2) Console.WriteLine($"-> Energia: {strPetName} precisa descansar!");
-            else if (Energy <= 4) Console.WriteLine($"-> Energia: {strPetName} está cansado!");
-            else Console.WriteLine($"-> Energia: {strPetName} está animado!");
+            string strMsgEnergia;
+            if (Energy >= 9) strMsgEnergia = " está muito animado!";
+            else if (Energy <= 2) strMsgEnergia = " está muito cansado!";
+            else if (Energy <= 4) strMsgEnergia = " está cansado!";
+            else strMsgEnergia = " está animado!";
 
             // Saúde
-            if (Health <= 2) Console.WriteLine($"-> Saúde: {strPetName} está muito doente!");
-            else if (Health <= 4) Console.WriteLine($"-> Saúde: {strPetName} está doente!");
-            else Console.WriteLine($"-> Saúde: {strPetName} está saudável!");
+            string strMsgSaude;
+            if (Health <= 2) strMsgSaude = " está muito doente!";
+            else if (Health <= 4) strMsgSaude = " está doente!";
+            else strMsgSaude = " está saudável!";
+
+            Console.WriteLine($"--> Fome:    {Food} | {strPetName}{strMsgFood}");
+            Console.WriteLine($"--> Humor:   {Humor} | {strPetName}{strMsgHumor}");
+            Console.WriteLine($"--> Energia: {Energy} | {strPetName}{strMsgEnergia}");
+            Console.WriteLine($"--> Saúde:   {Health} | {strPetName}{strMsgSaude}");
         }
 
         public class Skill

@@ -8,10 +8,16 @@ namespace PokechiApp.Controllers
 {
     public class TamagotchiController
     {
+        #region Attributes/Properties
+
         private TamagotchiView menu { get; set; }
         private PokemonAPIService pokemonApiService { get; set; }
         private List<PokemonResults> petsDisponiveis { get; set; }
         private List<TamagotchiDto> petsAdotados { get; set; }
+
+        #endregion
+
+        #region Builders/Methods
 
         public TamagotchiController()
         {
@@ -130,5 +136,7 @@ namespace PokechiApp.Controllers
                 }
             }
         }
+
+        #endregion
     }
 }

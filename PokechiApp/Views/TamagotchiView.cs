@@ -13,6 +13,8 @@ namespace PokechiApp.Views
 
         #endregion
 
+        #region Methods
+
         public void Welcome()
         {
             Console.WriteLine("Bem Vindo à Central de \n");
@@ -31,7 +33,7 @@ namespace PokechiApp.Views
 
             Player = Console.ReadLine();
             Console.WriteLine();
-            Console.WriteLine($"Seja bem vindo, {Player}!\n");
+            Console.WriteLine($"Seja bem vindo, {Player}!");
 
             /*  Depois arrumo essa parte dos pronomes, por enquanto é coisa extra e desnecessária
             Console.WriteLine("Com qual pronome você gostaria de ser chamado? ");
@@ -131,14 +133,15 @@ namespace PokechiApp.Views
 
         public void ShowAdoptedPets(List<TamagotchiDto> adoptedPets)
         {
-            Console.WriteLine("\n*******************");
-            Console.WriteLine("Seus pets adotados:");
             if (adoptedPets.Count == 0)
             {
                 Console.WriteLine("Você ainda não adotou nenhum pet.");
             }
             else
             {
+                Console.WriteLine("\n*******************");
+                Console.WriteLine("Seus pets adotados:");
+
                 for (int i = 0; i < adoptedPets.Count; i++)
                 {
                     Console.WriteLine(i + 1 + ". " + adoptedPets[i].Name);
@@ -166,9 +169,8 @@ namespace PokechiApp.Views
                 Console.Write($"Escolha uma espécie pelo número (1 a {specie.Count}): ");
                 try
                 {
-                    if (!int.TryParse(Console.ReadLine(), out escolha) && escolha >= 1 && escolha <= specie.Count)
-                        Console.WriteLine("Escolha inválida. Tente novamente.");
-                    else break;
+                    if (int.TryParse(Console.ReadLine(), out escolha) && escolha >= 1 && escolha <= specie.Count) break;
+                    Console.WriteLine("Escolha inválida. Tente novamente.");
                 }
                 catch (Exception e)
                 {
@@ -176,14 +178,16 @@ namespace PokechiApp.Views
                 }
             }
 
-            return escolha - 1;
+            return escolha - 1; // Ajuste para índice baseado em 0
         }
 
         public bool ConfirmarAdocao()
         {
-            Console.Write("\nVocê gostaria de adotar esse pet? (s/n): ");
+            Console.Write("\nVocê gostaria de adotar esse pokemon? (s/n): ");
             string resposta = Console.ReadLine();
             return resposta.ToLower() == "s";
         }
+
+        #endregion
     }
 }
