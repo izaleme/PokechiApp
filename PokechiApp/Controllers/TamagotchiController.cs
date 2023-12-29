@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
+using PokechiApp.Views;
 using PokechiApp.Models;
 using PokechiApp.Services;
-using PokechiApp.Views;
+using System.Collections.Generic;
 
 namespace PokechiApp.Controllers
 {

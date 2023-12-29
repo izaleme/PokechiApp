@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using PokechiApp.Models;
+using System.Collections.Generic;
 
 namespace PokechiApp.Views
 {
@@ -15,30 +15,42 @@ namespace PokechiApp.Views
 
         public void Welcome()
         {
-            Console.WriteLine("************************************** ");
-            Console.WriteLine("** Bem vindo à central de pokemons! ** ");
-            Console.WriteLine("************************************** ");
-            Console.WriteLine("\nAqui você poderá escolher um pokemon para ser seu pet! Vamos começar?");
+            Console.WriteLine("Bem Vindo à Central de \n");
 
+            Console.WriteLine("######    #####   ### ###  ######   ### ###   #####   ##  ##    ######   ##### ");
+            Console.WriteLine("### ###  ### ###   ## ###   ######  #######  ### ###  ### ###  ######    ##### ");
+            Console.WriteLine("###  ##  ### ###   #####    ##      #######  ### ###  ### ###  ##        ##### ");
+            Console.WriteLine("### ###  ##   ##  #####    ######   ##   ##  ##   ##  #### ##  #####     ####  ");
+            Console.WriteLine("######   ##   ##  ####     #####    ### ###  ##   ##  ## ####   #####      ##  ");
+            Console.WriteLine("###      ### ###  ######   ###      ### ###  ### ###  ### ###      ###    ###  ");
+            Console.WriteLine(" ###     #######  ### ###  #######   ## ##   #######  ### ###   ######   ####  ");
+            Console.WriteLine(" ###      #####   ### ###   #####    ## ##    #####    ##  ##  ######     ##   ");
+
+            Console.WriteLine("\nAqui você poderá escolher um pokemon para ser seu pet! Vamos começar?");
             Console.Write("Como você quer ser chamado? ");
+
             Player = Console.ReadLine();
             Console.WriteLine();
-
-            //Console.WriteLine("Com qual pronome você gostaria de ser chamado? ");
-            //Console.Write("Digite 1 para ELE, 2 para ELA ou 3 para ELU: ");
-
-            //while (Pronome == 0)
-            //{
-            //    Pronome = Convert.ToInt16(Console.ReadLine());
-            //    Console.WriteLine();
-            //}
-
-            //if (Pronome == 1)
             Console.WriteLine($"Seja bem vindo, {Player}!\n");
-            //else if (Pronome == 2)
-            //    Console.WriteLine($"Seja bem vinda, {Player}!\n");
-            //else
-            //    Console.WriteLine($"Seja bem vinde, {Player}!\n");
+
+            /*  Depois arrumo essa parte dos pronomes, por enquanto é coisa extra e desnecessária
+            Console.WriteLine("Com qual pronome você gostaria de ser chamado? ");
+            Console.Write("Digite 1 para ELE, 2 para ELA ou 3 para ELU: ");
+
+            while (Pronome == 0)
+            {
+                Pronome = Convert.ToInt16(Console.ReadLine());
+                Console.WriteLine();
+            }
+
+            if (Pronome == 1)
+                Console.WriteLine($"Seja bem vindo, {Player}!\n");
+            else if (Pronome == 2)
+                Console.WriteLine($"Seja bem vinda, {Player}!\n");
+            else
+                Console.WriteLine($"Seja bem vinde, {Player}!\n");
+            */
+
         }
 
         public void ShowMenuPrincipal()
