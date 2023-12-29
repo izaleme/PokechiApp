@@ -50,17 +50,11 @@ namespace PokechiApp.Controllers
                                     menu.ShowPetsDisponiveis(petsDisponiveis);
                                     break;
 
-                                case 2:
+                                case 2: // SOBRE
+                                case 3: // ADOÇÃO
                                     menu.ShowPetsDisponiveis(petsDisponiveis);
                                     int indicePokemon = menu.ChoosePokemon(petsDisponiveis);
                                     PokemonDetailsResult details = pokemonApiService.GetPokemonDetails(petsDisponiveis[indicePokemon]);
-                                    menu.ShowDetalhesEspecie(details);
-                                    break;
-
-                                case 3: // ADOÇÃO
-                                    menu.ShowPetsDisponiveis(petsDisponiveis);
-                                    indicePokemon = menu.ChoosePokemon(petsDisponiveis);
-                                    details = pokemonApiService.GetPokemonDetails(petsDisponiveis[indicePokemon]);
                                     menu.ShowDetalhesEspecie(details);
                                     if (menu.ConfirmarAdocao())
                                     {
@@ -79,7 +73,7 @@ namespace PokechiApp.Controllers
                                     }
                                     break;
 
-                                case 4:
+                                case 4: // VOLTAR
                                     break;
                             }
 
@@ -104,23 +98,26 @@ namespace PokechiApp.Controllers
                         TamagotchiDto mascoteEscolhido = petsAdotados[indiceMascote];
 
                         int optionInteraction = 0;
-                        while (optionInteraction != 4)
+                        while (optionInteraction != 7)
                         {
                             menu.ShowInteractionMenu();
-                            optionInteraction = menu.ChooseMenuOption(1, 4);
+                            optionInteraction = menu.ChooseMenuOption(1, 6);
 
                             switch (optionInteraction)
                             {
                                 case 1:
-                                    mascoteEscolhido.MostrarStatus();
-                                    break;
+                                    mascoteEscolhido.MostrarStatus(); break;
                                 case 2:
-                                    mascoteEscolhido.Alimentar();
-                                    break;
+                                    mascoteEscolhido.Alimentar(); break;
                                 case 3:
-                                    mascoteEscolhido.Brincar();
-                                    break;
+                                    mascoteEscolhido.Brincar(); break;
                                 case 4:
+                                    mascoteEscolhido.Carinho(); break;
+                                case 5:
+                                    mascoteEscolhido.Descansar(); break;
+                                case 6:
+                                    mascoteEscolhido.Medicina(); break;
+                                case 7:
                                     break;
                             }
                         }
@@ -131,7 +128,7 @@ namespace PokechiApp.Controllers
                         break;
 
                     case 4:
-                        Console.WriteLine("Obrigado por jogar! Até a próxima!");
+                        Console.WriteLine("Obrigado por jogar! Até a próxima!\n");
                         return;
                 }
             }

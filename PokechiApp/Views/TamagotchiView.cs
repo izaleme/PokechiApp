@@ -92,15 +92,18 @@ namespace PokechiApp.Views
         public void ShowInteractionMenu()
         {
             Console.WriteLine();
-            Console.WriteLine("******************************* ");
-            Console.WriteLine("*      MENU DE INTERAÇÃO      * ");
-            Console.WriteLine("******************************* ");
-            Console.WriteLine("* 1 - Verificar status do Pet * ");
-            Console.WriteLine("* 2 - Alimentar o Pet         * ");
-            Console.WriteLine("* 3 - Brincar com o Pet       * ");
-            Console.WriteLine("* 4 - Voltar                  * ");
-            Console.WriteLine("******************************* ");
-            Console.WriteLine("******************************* ");
+            Console.WriteLine("******************************** ");
+            Console.WriteLine("*       MENU DE INTERAÇÃO      * ");
+            Console.WriteLine("******************************** ");
+            Console.WriteLine("* 1 - Verificar status         * ");
+            Console.WriteLine("* 2 - Alimentar                * ");
+            Console.WriteLine("* 3 - Brincar                  * ");
+            Console.WriteLine("* 4 - Fazer carinho            * ");
+            Console.WriteLine("* 5 - Colocar para dormir      * ");
+            Console.WriteLine("* 6 - Medicar                  * ");
+            Console.WriteLine("* 7 - Voltar                   * ");
+            Console.WriteLine("******************************** ");
+            Console.WriteLine("******************************** ");
             Console.WriteLine();
 
             Console.Write("Escolha uma opção: ");
